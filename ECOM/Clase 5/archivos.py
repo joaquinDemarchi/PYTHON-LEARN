@@ -1,3 +1,4 @@
+
 from datetime import datetime
 # # Abriendo y leyendo el archivo completo
 # with open('http_access_200304.log', 'r') as archivito:
