@@ -1,4 +1,6 @@
 from registrar_errores import *
+from dividirXGenero import *
+from dividirXTipVacuna  import *
 
 #Análisis de datos de vacunación COVID-19 sin librerías externas
 
@@ -26,35 +28,19 @@ with open('registros_erroneos.csv', 'w', encoding='utf-8') as f:  # Asegúrate d
             f.write(f"{indice},{registro},{observacion}\n")
 
 
-distribucion_genero = {'M': 0, 'F': 0}
-
-for registro in registros:
-    sexo = registro['sexo']  # Obtiene el sexo del registro
-    # Verifica si el sexo es válido antes de intentar incrementar
-    if sexo in distribucion_genero:
-        distribucion_genero[sexo] += 1
-
-# Vacunas aplicadas por tipo de vacuna: ¿Que cantidad de personas han recibido cada de las vacunas?
-distribucion_vacunas = {'Moderna': 0, 'Sputnik': 0, 'Astrazeneca': 0, 'Sinopharm': 0, 'Pfizer': 0}
-
-for registro in registros:
-    vacuna = registro['vacuna']
-    if vacuna in distribucion_vacunas:
-        distribucion_vacunas[vacuna] += 1
-
-# Calcular proporciones
-total_vacunas = sum(distribucion_vacunas.values())
-
-# Guardar la distribución por género
-with open('distribucion_genero.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
+with open('genero.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
     f.write('Sexo,Cantidad\n')
-    for sexo, cantidad in distribucion_genero.items():
+    for sexo, cantidad in dividirXGenero(registros).items():
         f.write(f"{sexo},{cantidad}\n")
 
+# Vacunas aplicadas por tipo de vacuna: ¿Que cantidad de personas han recibido cada de las vacunas?
+
+total_vacunas = sum(dividirXTipVacuna(registros).values())
+
 # Guardar la distribución de vacunas
-with open('distribucion_vacunas.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
+with open('tipos_vacunas.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
     f.write('Vacuna,Cantidad,Proporción\n')
-    for vacuna, cantidad in distribucion_vacunas.items():
+    for vacuna, cantidad in dividirXTipVacuna(registros).items():
         proporcion = (cantidad / total_vacunas) * 100 
         f.write(f"{vacuna},{cantidad},{round(proporcion)}%\n")
 
@@ -94,22 +80,22 @@ refuerzos_mayores_60 = sum(1 for registro in registros
                             if registro['orden_dosis'] > '2' and
                             '60' in registro['grupo_etario'])
 
-# Guardar información sobre refuerzos mayores de 60
+
 with open('refuerzos_mayores_60.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
     f.write('Cantidad\n')
     f.write(f"{refuerzos_mayores_60}\n")
 
 
-# Mostrar resultados en la consola
+
 
 print("Análisis completado.\n")
 
 print("Distribución por Género:")
-print(f"Masculino: {distribucion_genero['M']}")
-print(f"Femenino: {distribucion_genero['F']}\n")  # Salto de línea añadido
+print(f"Masculino: {dividirXGenero(registros)['M']}")
+print(f"Femenino: {dividirXGenero(registros)['F']}\n")  
 
 print("Vacunas Aplicadas por Tipo de Vacuna:")
-for vacuna, cantidad in distribucion_vacunas.items():
+for vacuna, cantidad in dividirXTipVacuna(registros).items():
     proporcion = (cantidad / total_vacunas) * 100
     print(f"{vacuna}: {round(proporcion)}%")
 print()  # Salto de línea añadido
