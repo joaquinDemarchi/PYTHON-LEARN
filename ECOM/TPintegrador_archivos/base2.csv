@@ -1,0 +1,11 @@
+sexo,grupo_etario,jurisdiccion_residencia,jurisdiccion_residencia_id,depto_residencia,depto_residencia_id,jurisdiccion_aplicacion,jurisdiccion_aplicacion_id,depto_aplicacion,depto_aplicacion_id,fecha_aplicacion,vacuna,cod_dosis_generica,nombre_dosis_generica,condicion_aplicacion,orden_dosis,lote_vacuna,id_persona_dw
+M,30-39,Córdoba,06,La Plata,01,Buenos Aires,21,Rosario,04,2023-01-11,Pfizer,3,2da,CON Factores de Riesgo,3,B456,112931.94553749263
+F,18-29,Salta,06,Capital,04,Santa Fe,21,Capital,02,2023-01-12,Sinopharm,1,2da,CON Factores de Riesgo,1,A123,483392.102297324
+F,60 o más,Córdoba,66,Capital,03,Santa Fe,14,Capital,01,2023-01-13,Sinopharm,14,Refuerzo,CON Factores de Riesgo,1,B456,553644.267716593
+F,18-29,La Pampa,06,La Plata,03,Córdoba,14,Rosario,03,2023-01-14,Sinopharm,2,Refuerzo,SIN Factores de Riesgo,3,C789,840393.2425917095
+M,40-49,Salta,06,La Plata,03,Buenos Aires,21,Baradero,03,2023-01-15,Moderna,2,Refuerzo,SIN Factores de Riesgo,3,C789,3728.6440469620484
+M,50-59,Buenos Aires,20,Capital,01,Santa Fe,14,La Plata,04,2023-01-16,Moderna,3,1ra,SIN Factores de Riesgo,3,B456,657394.6862509635
+F,<12,Buenos Aires,66,Capital,03,Córdoba,06,La Plata,04,2023-01-17,Moderna,3,Refuerzo,SIN Factores de Riesgo,1,B456,258556.37144590603
+F,50-59,Buenos Aires,14,Rosario,02,Córdoba,14,Baradero,04,2023-01-18,Sinopharm,1,2da,SIN Factores de Riesgo,1,A123,441553.36201119365
+F,18-29,Salta,66,Rosario,04,Buenos Aires,21,La Plata,03,2023-01-19,Pfizer,2,Refuerzo,CON Factores de Riesgo,2,A123,18361.843948117796
+F,40-49,Córdoba,06,Capital,01,Santa Fe,21,Capital,03,2023-01-20,Pfizer,1,2da,CON Factores de Riesgo,3,A123,379203.11417886475
