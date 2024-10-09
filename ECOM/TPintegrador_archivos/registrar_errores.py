@@ -1,5 +1,13 @@
 
 def registrar_errores(registros) :
+    
+    jurPosibles = [
+    "Buenos Aires", "Caba", "Catamarca", "Chaco", "Chubut",
+    "Cordoba", "Corrientes", "Entre Rios", "Formosa", "Jujuy",
+    "La Pampa", "La Rioja", "Mendoza", "Misiones", "Neuquen",
+    "Rio Negro", "Salta", "San Juan", "San Luis", "Santa Cruz",
+    "Santa Fe", "Santiago Del Estero", "Tierra Del Fuego", "Tucuman"
+    ]
 
     registros_erroneos = []
     
@@ -11,6 +19,9 @@ def registrar_errores(registros) :
         # Ejemplo de verificación: Chequear si la vacuna es valida
         if registro['vacuna'] not in ['Moderna', 'Sputnik', 'Astrazaneca', 'Sinopharm', 'Pfizer']:
             registros_erroneos.append((i, registro, "Vacuna inválida"))
+            
+        if registro['jurisdiccion_residencia'] not in jurPosibles:
+            registros_erroneos.append((i, registro, "Jurisdiccion invalida"))
 
         # Verificar valores nulos
         for campo in registro:

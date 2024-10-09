@@ -1,6 +1,9 @@
 from registrar_errores import *
 from dividirXGenero import *
 from dividirXTipVacuna  import *
+from dosisXJurisdiccion  import *
+from segDosisXJur  import *
+from refuerzosAMas60  import *
 
 #Análisis de datos de vacunación COVID-19 sin librerías externas
 
@@ -46,44 +49,26 @@ with open('tipos_vacunas.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usa
 
 # Dosis por jurisdicción de residencia: ¿Cuantas personas han diso vacunadas en cada provincia?
 
-dosis_por_jurisdiccion = {"Buenos Aires": 0, "CABA": 0, "Catamarca": 0, "Chaco": 0, "Chubut": 0, "Córdoba": 0, "Corrientes": 0, "Entre Ríos": 0, "Formosa": 0, "Jujuy": 0, "La Pampa": 0, "La Rioja": 0, "Mendoza": 0, "Misiones": 0, "Neuquén": 0, "Río Negro": 0, "Salta": 0, "San Juan": 0, "San Luis": 0, "Santa Cruz": 0, "Santa Fe": 0, "Santiago del Estero": 0, "Tierra del Fuego": 0, "Tucumán": 0}
-
-
-for registro in registros:
-    jurisdiccion = registro['jurisdiccion_residencia']
-    if jurisdiccion in dosis_por_jurisdiccion:
-        dosis_por_jurisdiccion[jurisdiccion] += 1
-
-# Guardar dosis por jurisdicción
 with open('dosis_por_jurisdiccion.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
-    f.write('Jurisdicción,Cantidad\n')
-    for jurisdiccion, cantidad in dosis_por_jurisdiccion.items():
-        f.write(f"{jurisdiccion},{cantidad}\n")
+        f.write('Jurisdicción,Cantidad\n')
+        for jurisdiccion, cantidad in dosisXJurisdiccion(registros).items():
+            f.write(f"{jurisdiccion},{cantidad}\n")
 
 # ¿Cuántas personas han recibido la segunda dosis en cada provincia?
-segunda_dosis = {"Buenos Aires": 0, "CABA": 0, "Catamarca": 0, "Chaco": 0, "Chubut": 0, "Córdoba": 0, "Corrientes": 0, "Entre Ríos": 0, "Formosa": 0, "Jujuy": 0, "La Pampa": 0, "La Rioja": 0, "Mendoza": 0, "Misiones": 0, "Neuquén": 0, "Río Negro": 0, "Salta": 0, "San Juan": 0, "San Luis": 0, "Santa Cruz": 0, "Santa Fe": 0, "Santiago del Estero": 0, "Tierra del Fuego": 0, "Tucumán": 0}
-
-for registro in registros:
-    if registro['nombre_dosis_generica'] == '2da':
-        jurisdiccion = registro['jurisdiccion_residencia']
-        if jurisdiccion  in segunda_dosis:
-            segunda_dosis[jurisdiccion] += 1
 
 # Guardar segunda dosis por jurisdicción
 with open('segunda_dosis_por_jurisdiccion.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
     f.write('Jurisdicción,Cantidad\n')
-    for jurisdiccion, cantidad in segunda_dosis.items():
+    for jurisdiccion, cantidad in segDosisXJur(registros).items():
         f.write(f"{jurisdiccion},{cantidad}\n")
 
 # Cuántas personas mayores de 60 años han recibido dosis de refuerzo
-refuerzos_mayores_60 = sum(1 for registro in registros
-                            if registro['orden_dosis'] > '2' and
-                            '60' in registro['grupo_etario'])
+
 
 
 with open('refuerzos_mayores_60.csv', 'w', encoding='utf-8') as f:  # Asegúrate de usar 'utf-8'
     f.write('Cantidad\n')
-    f.write(f"{refuerzos_mayores_60}\n")
+    f.write(f"{refuerzosAMas60(registros)}\n")
 
 
 
@@ -101,16 +86,16 @@ for vacuna, cantidad in dividirXTipVacuna(registros).items():
 print()  # Salto de línea añadido
 
 print("Dosis por Jurisdicción:")
-for jurisdiccion, cantidad in dosis_por_jurisdiccion.items():
+for jurisdiccion, cantidad in dosisXJurisdiccion(registros).items():
     if cantidad != 0:
         print(f"{jurisdiccion}: {cantidad}")
 print()  # Salto de línea añadido
 
 print("Segunda Dosis por Jurisdicción:")
-for jurisdiccion, cantidad in segunda_dosis.items():
+for jurisdiccion, cantidad in segDosisXJur(registros).items():
     if cantidad != 0:
         print(f"{jurisdiccion}: {cantidad}")
 print()  # Salto de línea añadido
 
-print(f"Personas mayores de 60 años que recibieron dosis de refuerzo: {refuerzos_mayores_60}")
+print(f"Personas mayores de 60 años que recibieron dosis de refuerzo: {refuerzosAMas60(registros)}")
 print()
